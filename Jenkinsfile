@@ -74,7 +74,7 @@ pipeline {
                 sh '''
                     if [ -f /opt/cicd/production-version.txt ]; then
 
-                        CURRENT_VERSION=$(cat /opt/cicd/production-version.txt)
+                        CURRENT_VERSION=$(sudo cat /opt/cicd/production-version.txt)
 
                         echo "Current production version: ${CURRENT_VERSION}"
 
@@ -149,7 +149,7 @@ pipeline {
                 echo "STARTING AUTOMATIC ROLLBACK"
                 echo "======================================"
 
-                PREVIOUS_VERSION=$(cat /opt/cicd/previous-production-version.txt)
+                PREVIOUS_VERSION=$(sudo cat /opt/cicd/previous-production-version.txt)
 
                 echo "Rolling back to version: ${PREVIOUS_VERSION}"
 
