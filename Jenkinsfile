@@ -202,7 +202,7 @@ pipeline {
 
                     docker run -d \
                         --name cicd-app-production \
-                        -p 8080:3000 \
+                        -p 8088:3000 \
                         -e HEALTH_STATUS=${PRODUCTION_HEALTH_STATUS} \
                         cicd-app:${BUILD_NUMBER}
 
@@ -232,7 +232,7 @@ pipeline {
 
                         echo "Health check attempt: $i"
 
-                        if curl -f http://localhost:8080/health
+                        if curl -f http://localhost:8088/health
                         then
                             echo ""
                             echo "PRODUCTION HEALTH CHECK PASSED"
@@ -345,7 +345,7 @@ pipeline {
 
                 docker run -d \
                     --name cicd-app-production \
-                    -p 8080:3000 \
+                    -p 8088:3000 \
                     -e HEALTH_STATUS=healthy \
                     cicd-app:${PREVIOUS_VERSION}
 
@@ -371,7 +371,7 @@ pipeline {
 
                     echo "Rollback health check attempt: $i"
 
-                    if curl -f http://localhost:8080/health
+                    if curl -f http://localhost:8088/health
                     then
 
                         echo ""
