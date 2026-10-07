@@ -68,7 +68,7 @@ pipeline {
 
                     docker run -d \
                         --name cicd-app-production \
-                        -p 8080:3000 \
+                        -p 8088:3000 \
                         cicd-app:${BUILD_NUMBER}
                 '''
             }
@@ -81,7 +81,7 @@ pipeline {
 
                     for i in {1..10}
                     do
-                        if curl -f http://localhost:8080/health
+                        if curl -f http://localhost:8088/health
                         then
                             echo "Production health check PASSED"
                             exit 0
