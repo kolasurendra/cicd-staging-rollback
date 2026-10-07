@@ -3,10 +3,17 @@ pipeline {
     agent any
 
     parameters {
+
         choice(
-            name: 'HEALTH_STATUS',
+            name: 'STAGING_HEALTH_STATUS',
             choices: ['healthy', 'unhealthy'],
-            description: 'Application health status for deployment testing'
+            description: 'Health status for staging deployment'
+        )
+
+        choice(
+            name: 'PRODUCTION_HEALTH_STATUS',
+            choices: ['healthy', 'unhealthy'],
+            description: 'Health status for production deployment'
         )
     }
 
@@ -40,7 +47,7 @@ pipeline {
                     docker run -d \
                         --name cicd-app-staging \
                         -p 8081:3000 \
-                        -e HEALTH_STATUS=${HEALTH_STATUS} \
+                        -e HEALTH_STATUS=${STAGING_HEALTH_STATUS} \
                         cicd-app:${BUILD_NUMBER}
                 '''
             }
@@ -98,7 +105,7 @@ pipeline {
                     docker run -d \
                         --name cicd-app-production \
                         -p 8088:3000 \
-                        -e HEALTH_STATUS=${HEALTH_STATUS} \
+                        -e HEALTH_STATUS=${PRODUCTION_HEALTH_STATUS} \
                         cicd-app:${BUILD_NUMBER}
                 '''
             }
